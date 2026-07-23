@@ -13,5 +13,5 @@ const membersData = [
     id: 3,
     name: "Test",
     facebook: "https://facebook.com/your.facebook.3"
-  },
+  }
 ];
