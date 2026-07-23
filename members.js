@@ -9,4 +9,9 @@ const membersData = [
     name: "Test",
     facebook: "https://facebook.com/your.facebook.2"
   }
+  {
+    id: 3,
+    name: "Test",
+    facebook: "https://facebook.com/your.facebook.3"
+  }
 ];
