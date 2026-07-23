@@ -34,6 +34,4 @@ const membersData = [
     name: "Nxngmixg Megastrongest",
     facebook: "https://www.facebook.com/mungming.wtflevaronz.3"
   }
-
-
 ];
