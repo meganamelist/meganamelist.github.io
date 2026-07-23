@@ -29,4 +29,11 @@ const membersData = [
     name: "Yoksod Megastrongest",
     facebook: "https://www.facebook.com/yoksod.highbizzard.3"
   }
+{
+    id: 7,
+    name: "Nxngmixg Megastrongest",
+    facebook: "https://www.facebook.com/mungming.wtflevaronz.3"
+  }
+
+
 ];
