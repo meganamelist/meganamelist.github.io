@@ -1,7 +1,7 @@
 const membersData = [
   {
     id: 1,
-    name: "่Jack Mega",
+    name: "Jack Mega",
     facebook: "https://www.facebook.com/jack.beyondgod.1"
   },
   {
