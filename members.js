@@ -121,12 +121,12 @@ const membersData = [
   },
 {
     id: 25,
-    name: "ESPRESSO MEGASTRONGEST",
-    facebook: "https://www.facebook.com/profile.php?id=61577981716254"
+    name: "JAYWHITE MEGASTRONGEST",
+    facebook: "https://www.facebook.com/swagstarboy"
   },
 {
     id: 26,
-    name: "JAYWHITE MEGASTRONGEST",
+    name: "STARBOY MEGASTRONGEST",
     facebook: "https://www.facebook.com/jaywin.trustboy"
   },
 {
@@ -188,6 +188,11 @@ const membersData = [
     id: 38,
     name: "STEVE MEGASTRONGEST",
     facebook: "https://www.facebook.com/steve.dayrick"
+  },
+   {
+    id: 59,
+    name: "NONGICED MEGASTRONGEST",
+    facebook: "https://www.facebook.com/friends/requests/?profile_id=100086154721589&notif_id=1784916646115805&notif_t=friend&ref=notif"
   },
   {
     id: 39,
