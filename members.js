@@ -166,121 +166,126 @@ const membersData = [
   },
   {
     id: 34,
-    name: "UPGUN MEGASTRONGEST",
+    name: "BEB MEGASTRONGEST",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 35,
-    name: "LEYMON MEGASTRONGEST",
+    name: "UPGUN MEGASTRONGEST",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 36,
-    name: "ZENO MEGASTRONGEST",
+    name: "LEYMON MEGASTRONGEST",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 37,
-    name: "STEVE MEGASTRONGEST",
+    name: "ZENO MEGASTRONGEST",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 38,
-    name: "BIGBAS MEGA",
+    name: "STEVE MEGASTRONGEST",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 39,
-    name: "Delky MEGA",
+    name: "BIGBAS MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 40,
-    name: "JAY MEGA",
+    name: "Delky MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 41,
-    name: "MYNAMEISNINE MEGA",
+    name: "JAY MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 42,
-    name: "UFA MEGA",
+    name: "MYNAMEISNINE MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 43,
-    name: "YUTA MEGA",
+    name: "UFA MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 44,
-    name: "HIRUKI MEGA",
+    name: "YUTA MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 45,
-    name: "JUSTCRYY MEGA",
+    name: "HIRUKI MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 46,
-    name: "JXSTSAINT MEGA",
+    name: "JUSTCRYY MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
     id: 47,
+    name: "JXSTSAINT MEGA",
+    facebook: "https://www.facebook.com/mungming.wtflevaronz"
+  },
+  {
+    id: 48,
     name: "JXSTSIX MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 48,
+    id: 49,
     name: "KIMSXR MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 49,
+    id: 50,
     name: "MISO MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 50,
+    id: 51,
     name: "MON MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 51,
+    id: 52,
     name: "NONGALICE MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 52,
+    id: 53,
     name: "NONGCHI MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 53,
+    id: 54,
     name: "RAZER MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 54,
+    id: 55,
     name: "SEOYUL MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
     {
-    id: 55,
+    id: 56,
     name: "SHXRIN MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
-    id: 56,
+    id: 57,
     name: "YURI MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   },
   {
-    id: 57,
+    id: 58,
     name: "ZOJI MEGA",
     facebook: "https://www.facebook.com/mungming.wtflevaronz"
   }
