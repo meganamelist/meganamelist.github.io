@@ -51,13 +51,13 @@ const membersData = [
   },
   {
     id: 11,
-    name: "RUTHLESS MEGASTRONGEST",
-    facebook: "https://www.facebook.com/ruthless.raisara"
+    name: "LYKA MEGASTRONGEST",
+    facebook: "https://www.facebook.com/profile.php?id=61552394374271"
   },
   {
     id: 12,
-    name: "JEWELZ MEGASTRONGEST",
-    facebook: "https://www.facebook.com/JewelzTG"
+    name: "WHITES MEGASTRONGEST",
+    facebook: "https://www.facebook.com/whites.588"
   },
 {
     id: 13,
@@ -121,8 +121,8 @@ const membersData = [
   },
 {
     id: 25,
-    name: "JAYWHITE MEGASTRONGEST",
-    facebook: "https://www.facebook.com/swagstarboy"
+    name: "KINGX MEGASTRONGEST",
+    facebook: "https://www.facebook.com/profile.php?id=61552315697096"
   },
 {
     id: 26,
