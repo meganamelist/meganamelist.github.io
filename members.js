@@ -250,11 +250,6 @@ const membersData = [
     facebook: "https://www.facebook.com/Kimsxr.ssr"
   },
     {
-    id: 50,
-    name: "MISO MEGA",
-    facebook: "https://www.facebook.com/gintama.gintama.583"
-  },
-    {
     id: 51,
     name: "MXN MEGA",
     facebook: "https://www.facebook.com/isusjabhere.myareaarmstrong"
