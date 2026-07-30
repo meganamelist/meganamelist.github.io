@@ -190,18 +190,13 @@ const membersData = [
     facebook: "https://www.facebook.com/steve.dayrick"
   },
    {
-    id: 59,
+    id: 39,
     name: "NONGICED MEGASTRONGEST",
     facebook: "https://www.facebook.com/friends/requests/?profile_id=100086154721589&notif_id=1784916646115805&notif_t=friend&ref=notif"
   },
   {
-    id: 39,
-    name: "BIGBAS MEGA",
-    facebook: "https://www.facebook.com/bigbas.wtfdelta"
-  },
-  {
     id: 40,
-    name: "Delky MEGA",
+    name: "DELKY MEGA",
     facebook: "https://www.facebook.com/dxlkyy"
   },
   {
