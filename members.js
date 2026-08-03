@@ -261,7 +261,7 @@ const membersData = [
   },
     {
     id: 54,
-    name: "RAZER MEGA",
+    name: "JXSTNXST MEGA",
     facebook: "https://www.facebook.com/profile.php?id=100068549240343"
   },
     {
