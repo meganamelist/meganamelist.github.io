@@ -91,7 +91,7 @@ const membersData = [
   },
     {
     id: 18,
-    name: "HENLY MEGASTRONGEST",
+    name: "HENRY MEGASTRONGEST",
     facebook: "-"
   },
     {
