@@ -69,6 +69,11 @@ const membersData = [
     name: "MELON MEGASTRONGEST",
     facebook: "https://www.facebook.com/Melon.oneintheworld"
   },
+    {
+    id: 12,
+    name: "LEGO MEGAXLEVARONZ",
+    facebook: "https://www.facebook.com/Lego.WTFLVR"
+  },
   {
     id: 14,
     name: "SNOW MEGASTRONGEST",
