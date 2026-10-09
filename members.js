@@ -76,12 +76,32 @@ const membersData = [
   },
    {
     id: 16,
-    name: "SNOW MEGASTRONGEST",
-    facebook: "https://www.facebook.com/snow.sevensin"
+    name: "WINTER MEGASTRONGEST",
+    facebook: "https://www.facebook.com/profile.php?id=100082518770760"
   },
    {
     id: 17,
-    name: "SNOW MEGASTRONGEST",
-    facebook: "https://www.facebook.com/snow.sevensin"
+    name: "NONGFING MEGASTRONGEST",
+    facebook: "https://www.facebook.com/mungming.wtflevaronz"
+  },
+    {
+    id: 18,
+    name: "HENLY MEGASTRONGEST",
+    facebook: "-"
+  },
+    {
+    id: 19,
+    name: "BENZ MEGASTRONGEST",
+    facebook: "-"
+  },
+    {
+    id: 20,
+    name: "MERLIN MEGASTRONGEST",
+    facebook: "https://www.facebook.com/merlindiamondonsnow"
+  },
+    {
+    id: 21,
+    name: "YOKSOD MEGASTRONGEST",
+    facebook: "https://www.facebook.com/yoksod.highbizzard"
   },
 ];
