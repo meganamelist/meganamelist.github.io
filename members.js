@@ -55,6 +55,11 @@ const membersData = [
     facebook: "https://www.facebook.com/JewelzTG"
   },
   {
+    id: 11,
+    name: "PARIYA MEGASTRONGEST",
+    facebook: "-"
+  },
+  {
     id: 12,
     name: "RUTHLESS MEGASTRONGEST",
     facebook: "https://www.facebook.com/ruthless.raisara"
