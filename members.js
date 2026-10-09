@@ -6,17 +6,82 @@ const membersData = [
   },
   {
     id: 2,
-    name: "JOB LYFESTYLEXMEGA",
-    facebook: "https://www.facebook.com/Minosmp"
+    name: "MON LYFESTYLEXMEGA",
+    facebook: "https://www.facebook.com/mon.semipro"
   },
   {
     id: 3,
-    name: "PERCE LYFESTYLEXMEGA",
-    facebook: "https://www.facebook.com/Minosmp"
+    name: "JOB LYFESTYLEXMEGA",
+    facebook: "https://www.facebook.com/jobavartanbxy"
   },
   {
     id: 4,
+    name: "PERCE LYFESTYLEXMEGA",
+    facebook: "https://www.facebook.com/profile.php?id=61583367501844"
+  },
+  {
+    id: 5,
     name: "JXYWELL LYFESTYLEXMEGA",
-    facebook: "https://www.facebook.com/Minosmp"
+    facebook: "https://www.facebook.com/profile.php?id=61552394374271"
+  },
+   {
+    id: 6,
+    name: "KIW LYFESTYLEXMEGA",
+    facebook: "https://www.facebook.com/profile.php?id=61585952804183"
+  },
+   {
+    id: 7,
+    name: "NOTT LYFESTYLEXMEGA",
+    facebook: "hhttps://www.facebook.com/profile.php?id=61590281803946"
+  },
+   {
+    id: 8,
+    name: "STEVE LYFESTYLEXMEGA",
+    facebook: "https://www.facebook.com/steve.dayrick"
+  },
+  {
+    id: 9,
+    name: "MINO MEGASTRONGEST",
+    facebook: "https://www.facebook.com/minosmp"
+  },
+  {
+    id: 10,
+    name: "JESS MEGASTRONGEST",
+    facebook: "https://www.facebook.com/profile.php?id=61595159609286"
+  },
+  {
+    id: 11,
+    name: "JEWELZ MEGASTRONGEST",
+    facebook: "https://www.facebook.com/JewelzTG"
+  },
+  {
+    id: 12,
+    name: "RUTHLESS MEGASTRONGEST",
+    facebook: "https://www.facebook.com/ruthless.raisara"
+  },
+  {
+    id: 13,
+    name: "MELON MEGASTRONGEST",
+    facebook: "https://www.facebook.com/Melon.oneintheworld"
+  },
+  {
+    id: 14,
+    name: "SNOW MEGASTRONGEST",
+    facebook: "https://www.facebook.com/snow.sevensin"
+  },
+   {
+    id: 15,
+    name: "OVER MEGASTRONGEST",
+    facebook: "https://www.facebook.com/Idont.giveaFuxk"
+  },
+   {
+    id: 16,
+    name: "SNOW MEGASTRONGEST",
+    facebook: "https://www.facebook.com/snow.sevensin"
+  },
+   {
+    id: 17,
+    name: "SNOW MEGASTRONGEST",
+    facebook: "https://www.facebook.com/snow.sevensin"
   },
 ];
