@@ -51,7 +51,7 @@ const membersData = [
   },
   {
     id: 11,
-    name: "JEWELZ MEGASTRONGEST",
+    name: "JEWELZ MEGAXLEVARONZ",
     facebook: "https://www.facebook.com/JewelzTG"
   },
   {
@@ -61,7 +61,7 @@ const membersData = [
   },
   {
     id: 12,
-    name: "RUTHLESS MEGASTRONGEST",
+    name: "RUTHLESS MEGAXLEVARONZ",
     facebook: "https://www.facebook.com/ruthless.raisara"
   },
   {
