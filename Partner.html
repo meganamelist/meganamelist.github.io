@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th" style="--ui-scale: 1; --card-scale: 1;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#030406">
+  <title>ALL - FAMILY</title>
+  <meta name="description" content="สหพันธ์ Allfriend — เครือในสหพันธ์ The Federation">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'></text></svg>">
+  <link rel="stylesheet" href="./theme.css">
+  <script src="./protect.js"></script>
+</head>
+<body class="page-partner">
+
+  <!-- WebGL Dynamic Ferrofluid & Liquid Chrome Canvas -->
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <!-- Film Grain Overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Standalone Crews / The Federation View -->
+  <main class="view-crews-standalone" id="view-crews">
+    <header class="home-top">
+      <div class="ht-left">
+        <a href="index.html" class="back-btn" id="crewsBackBtn" aria-label="กลับหน้าแรก" data-glass="">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path d="M19 12H5M11 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <span class="home-brand">PARTNER <i></i></span>
+      </div>
+
+      <!-- Circular Glass Hamburger Button → opens PIN modal -->
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="เข้าสู่ระบบแอดมิน" title="Admin Login">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <section class="home-body crews-body">
+      <div class="home-head">
+        <span class="home-kicker">ALL - FAMILY - PARTNER</span>
+        <h2 class="home-title"></h2>
+      </div>
+
+      <!-- Injected dynamically by partner.js -->
+      <div class="crew-row" id="crews-grid"></div>
+    </section>
+
+    <!-- Bottom Right Pager -->
+    <nav class="crew-pager" id="crewPager" aria-label="เปลี่ยนหน้าการ์ดเครือ">
+      <button class="pg-arrow" id="pgPrev" type="button" aria-label="หน้าก่อนหน้า" disabled>‹</button>
+      <b class="pg-label" id="pgLabel">1/2</b>
+      <button class="pg-arrow" id="pgNext" type="button" aria-label="หน้าถัดไป">›</button>
+    </nav>
+  </main>
+
+  <!-- ==========================================================================
+       PIN ENTRY MODAL — กดปุ่ม Admin → ใส่รหัส 4 หลัก → ไปหน้า admin.html
+       ========================================================================== -->
+  <div class="pin-backdrop" id="pinBackdrop" role="dialog" aria-modal="true" aria-label="ยืนยันตัวตนแอดมิน">
+    <div class="pin-card">
+      <!-- Close -->
+      <button class="pin-close" id="pinClose" type="button" aria-label="ปิด">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <!-- Header -->
+      <div class="pin-header">
+        <div class="pin-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <span class="pin-brand">ALL - FAMILY</span>
+        <h2 class="pin-title">ADMIN</h2>
+        <p class="pin-sub">ใส่รหัส 4 หลักเพื่อเข้าสู่ระบบหลังบ้าน</p>
+      </div>
+
+      <!-- PIN Dots Display -->
+      <div class="pin-dots" id="pinDots">
+        <div class="pin-dot" id="dot0"></div>
+        <div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div>
+        <div class="pin-dot" id="dot3"></div>
+      </div>
+
+      <!-- Error message -->
+      <div class="pin-error" id="pinError">รหัสไม่ถูกต้อง ลองอีกครั้ง</div>
+
+      <!-- Number Pad -->
+      <div class="pin-pad" id="pinPad">
+        <button class="pin-key" data-val="1" type="button">1</button>
+        <button class="pin-key" data-val="2" type="button">2</button>
+        <button class="pin-key" data-val="3" type="button">3</button>
+        <button class="pin-key" data-val="4" type="button">4</button>
+        <button class="pin-key" data-val="5" type="button">5</button>
+        <button class="pin-key" data-val="6" type="button">6</button>
+        <button class="pin-key" data-val="7" type="button">7</button>
+        <button class="pin-key" data-val="8" type="button">8</button>
+        <button class="pin-key" data-val="9" type="button">9</button>
+        <button class="pin-key pin-key-clear" id="pinClear" type="button" title="ล้างรหัส">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 12H4M4 12l6-6M4 12l6 6"/>
+          </svg>
+        </button>
+        <button class="pin-key" data-val="0" type="button">0</button>
+        <button class="pin-key pin-key-del" id="pinDel" type="button" title="ลบตัวล่าสุด">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CREW DETAIL MODAL (ดูข้อมูลเพิ่มเติมฉบับเต็ม)
+       ========================================================================== -->
+  <div class="modal-backdrop" id="crewDetailModal" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width: 580px;">
+      <button class="modal-close" id="crewDetailClose" type="button" aria-label="ปิดหน้าต่าง">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="detail-banner" id="detailBanner"></div>
+
+      <div class="modal-heading" style="margin-bottom: 16px;">
+        <div class="mc-role" id="detailTag" style="color: #f5c542; margin-bottom: 4px;">
+          <i></i><span>FAMILY</span>
+        </div>
+        <h2 class="modal-name" id="detailName" style="font-size: 2rem;">ALLFRIEND</h2>
+        <p class="modal-sub" id="detailThName">ออลเฟรนด์</p>
+      </div>
+
+      <div class="modal-section">
+        <span class="modal-label">เกี่ยวกับเครือ</span>
+        <p class="modal-text" id="detailDesc">-</p>
+      </div>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-item">
+          <span class="modal-label">หัวหน้าแก๊งค์</span>
+          <div class="modal-info-val" id="detailLeader">-</div>
+        </div>
+        <div class="modal-info-item">
+          <span class="modal-label">จำนวนสมาชิก</span>
+          <div class="modal-info-val" id="detailCount">0/100</div>
+        </div>
+      </div>
+
+
+      <div class="modal-actions" style="display: flex; gap: 10px; margin-top: 24px;">
+        <a class="admin-btn-secondary" id="detailCopyLeaderBtn" href="#" target="_blank" rel="noopener noreferrer" style="flex: 1; padding: 12px 16px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Facebook ↗</span>
+        </a>
+
+        <a class="admin-btn-primary" id="detailMemberGangBtn" href="member.html" style="flex: 1.3; text-decoration: none; padding: 12px 18px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Member Gang (ดูสมาชิก)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Popup -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Firebase SDK (compat — works with file:// and no bundler) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+
+  <!-- Partner Script Controller -->
+  <script src="./partner.js"></script>
+</body>
+</html>

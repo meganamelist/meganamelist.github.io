@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="th" style="--ui-scale: 1;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#030406">
+  <title>ALL - FAMILY</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'></text></svg>">
+  <link rel="stylesheet" href="./theme.css">
+  <script src="./protect.js"></script>
+  <style>
+    .admin-page { min-height: 100vh; display: flex; flex-direction: column; position: relative; z-index: 10; }
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(4, 5, 8, 0.7);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .admin-header-left .ah-brand { font-family: var(--font-hud); font-size: 0.72rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.4); display: block; }
+    .admin-header-left .ah-title { font-family: var(--font-gothic); font-size: 1.7rem; font-weight: 800; color: #fff; margin-top: 2px; }
+    .admin-main { flex: 1; max-width: 980px; width: 100%; margin: 0 auto; padding: 28px 24px 80px; display: flex; flex-direction: column; gap: 24px; }
+
+    /* Crew Switcher Box */
+    .crew-select-card {
+      background: rgba(14, 18, 28, 0.65);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+    }
+    .crew-select-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 260px;
+    }
+    .crew-accent-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #f5c542;
+      box-shadow: 0 0 12px #f5c542;
+      flex-shrink: 0;
+    }
+    .crew-dropdown {
+      flex: 1;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .crew-dropdown:focus {
+      border-color: #f5c542;
+    }
+    .crew-meta-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .crew-pill {
+      font-size: 0.78rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .crew-pill b { color: #fff; }
+
+    /* Form Container */
+    .member-editor-card {
+      background: rgba(14, 18, 28, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+    .card-head-title {
+      font-family: var(--font-gothic);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-head-sub {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    /* Roster table/cards */
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .roster-card {
+      background: rgba(20, 24, 36, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .roster-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .rc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rc-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .rc-role-tag {
+      font-family: var(--font-hud);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rc-role-tag i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .rc-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      word-break: break-word;
+    }
+    .rc-bio {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+      flex: 1;
+    }
+    .rc-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+    .rc-fb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #38bdf8;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .rc-fb-btn:hover {
+      background: #38bdf8;
+      color: #000;
+    }
+    .rc-btn-edit {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .rc-btn-edit:hover { background: rgba(255,255,255,0.18); }
+    .rc-btn-del {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .rc-btn-del:hover { background: #ef4444; color: #fff; }
+  </style>
+  <script>
+    // Security Guard
+    if (sessionStorage.getItem('adminAuth') !== 'ok') {
+      window.location.href = 'Partner.html';
+    }
+  </script>
+</head>
+<body class="page-admin">
+
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="admin-page">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <span class="ah-brand">ALL - FAMILY</span>
+        <h1 class="ah-title">MEMBER MANAGEMENT</h1>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a id="btnViewMemberPage" href="member.html" class="admin-btn-secondary" style="text-decoration: none; padding: 9px 16px; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 6px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>ดูหน้าสมาชิกจริง</span>
+        </a>
+        <a href="admin.html" class="admin-btn-primary" style="text-decoration: none; padding: 9px 18px; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 6px;">
+          ← กลับหลังบ้าน
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+
+      <!-- Crew Selector Card -->
+      <section class="crew-select-card">
+        <div class="crew-select-wrap">
+          <div class="crew-accent-dot" id="activeCrewDot"></div>
+          <div style="flex: 1;">
+            <label style="font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; display: block; margin-bottom: 4px;">เลือกเครือที่จะจัดการสมาชิก:</label>
+            <select class="crew-dropdown" id="crewSelect"></select>
+          </div>
+        </div>
+
+        <div class="crew-meta-pills">
+          <div class="crew-pill">หัวหน้า: <b id="pillCrewLeader">-</b></div>
+          <div class="crew-pill">สมาชิกทั้งหมด: <b id="pillMembersCount" style="color: #f5c542;">0</b> คน</div>
+          <div class="crew-pill" id="pillLeaderFbWrap" style="display: none;">
+            FB: <b id="pillCrewLeaderFb">-</b>
+          </div>
+        </div>
+      </section>
+
+      <!-- Member Form (Add or Edit) -->
+      <section class="member-editor-card">
+        <div class="card-head-title" id="formTitle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>เพิ่มสมาชิกใหม่</span>
+        </div>
+        <p class="card-head-sub" id="formSubtitle">กรอกข้อมูลสมาชิกเพื่อแสดงผลในหน้า member.html ของเครือนี้</p>
+
+        <form id="memberForm" autocomplete="off">
+          <input type="hidden" id="editMemberIndex" value="-1">
+
+          <div class="admin-grid-2">
+            <div class="admin-form-group">
+              <label>ชื่อสมาชิก</label>
+              <input type="text" class="admin-form-input" id="memberName" required placeholder="เช่น Jack">
+            </div>
+            <div class="admin-form-group">
+              <label>ตำแหน่ง</label>
+              <select class="admin-form-input" id="memberRole" style="cursor: pointer;">
+                <option value="MEMBER">MEMBER (สมาชิกทั่วไป)</option>
+                <option value="HEAD">HEAD (หัวหน้าแก๊งค์ / ผู้ดูแล)</option>
+                <option value="FOUNDER">FOUNDER (ผู้ก่อตั้ง)</option>
+                <option value="CO-LEADER">CO-LEADER (รองหัวหน้า)</option>
+                <option value="OFFICER">OFFICER (เสนาธิการ)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-grid-2">
+            <div class="admin-form-group">
+              <label>สีประจำตำแหน่ง (ROLE COLOR)</label>
+              <div class="admin-color-picker-row">
+                <button type="button" class="admin-color-swatch is-selected" data-color="#f5c542" style="background:#f5c542;"></button>
+                <button type="button" class="admin-color-swatch" data-color="#e5484d" style="background:#e5484d;"></button>
+                <button type="button" class="admin-color-swatch" data-color="#a78bfa" style="background:#a78bfa;"></button>
+                <button type="button" class="admin-color-swatch" data-color="#ec4899" style="background:#ec4899;"></button>
+                <button type="button" class="admin-color-swatch" data-color="#38bdf8" style="background:#38bdf8;"></button>
+                <button type="button" class="admin-color-swatch" data-color="#4ade80" style="background:#4ade80;"></button>
+                <button type="button" class="admin-color-swatch" data-color="#ffffff" style="background:#ffffff;"></button>
+                <input type="color" id="memberColorCustom" style="width: 32px; height: 32px; border:none; background:none; cursor:pointer;" value="#f5c542" title="เลือกสีอิสระ">
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label>ลิงก์ หรือ ชื่อ Facebook สมาชิก</label>
+              <input type="text" class="admin-form-input" id="memberFacebook" placeholder="เช่น https://facebook.com/username">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label>คำอธิบาย / ฉายา / คติประจำตัว (BIO / MOTTO)</label>
+            <input type="text" class="admin-form-input" id="memberBio" placeholder="เช่น สายบู๊ประจำแก๊งค์ หรือ สมาชิกสังกัดเครือ">
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 14px; align-items: center;">
+            <button type="submit" class="admin-btn-primary" id="btnSubmitMember" style="padding: 12px 28px;">
+              + บันทึกสมาชิก
+            </button>
+            <button type="button" class="admin-btn-secondary" id="btnCancelEditMember" style="display: none; padding: 12px 20px;">
+              ยกเลิกการแก้ไข
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Roster List Section -->
+      <section class="admin-section" style="margin-top: 8px;">
+        <div class="admin-section-title" style="flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span>รายชื่อสมาชิกในเครือ</span>
+            <span id="rosterCountBadge" style="background: rgba(255,255,255,0.08); padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; color: #fff;">0 คน</span>
+          </div>
+
+          <!-- Search -->
+          <label class="search" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 6px 14px; min-width: 240px;">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="rosterSearch" placeholder="ค้นหาสมาชิกในเครือ..." style="background:none; border:none; outline:none; color:#fff; font-size:0.85rem; width:100%;">
+          </label>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filters" id="rosterFilters" style="margin-bottom: 16px;">
+          <button type="button" class="filter-btn is-active" data-filter="ALL">ทั้งหมด (<span id="cntAll">0</span>)</button>
+          <button type="button" class="filter-btn" data-filter="FOUNDER">FOUNDER (<span id="cntFounder">0</span>)</button>
+          <button type="button" class="filter-btn" data-filter="HEAD">HEAD (<span id="cntHead">0</span>)</button>
+          <button type="button" class="filter-btn" data-filter="MEMBER">MEMBER (<span id="cntMember">0</span>)</button>
+        </div>
+
+        <!-- Grid Container -->
+        <div class="roster-grid" id="rosterGrid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Firebase Compat CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // ==========================================
+    // 1. FIREBASE CONFIG
+    // ==========================================
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyCI4q6_4-Rihj7A4PJT67fneFtD1cJafHs",
+      authDomain: "fam297.firebaseapp.com",
+      projectId: "fam297",
+      storageBucket: "fam297.firebasestorage.app",
+      messagingSenderId: "144997285384",
+      appId: "1:144997285384:web:6b6d3b3ec9cd539d8b5bbd",
+      measurementId: "G-C3HSYN5QVY"
+    };
+
+    let allCrews = [];
+    let currentCrew = null;
+    let dbFirestore = null;
+    let isFirebaseActive = false;
+    let selectedRoleColor = '#f5c542';
+    let currentFilter = 'ALL';
+    let searchQuery = '';
+
+    // ==========================================
+    // 2. DATA LOAD & SYNC
+    // ==========================================
+    function sortCrews(list) {
+      return list.sort((a, b) => {
+        const oa = a.order !== undefined ? Number(a.order) : (parseInt(a.no) || 999);
+        const ob = b.order !== undefined ? Number(b.order) : (parseInt(b.no) || 999);
+        return oa - ob;
+      });
+    }
+
+    function loadCrews() {
+      try {
+        const raw = localStorage.getItem('sahaphan_crews');
+        if (raw) allCrews = sortCrews(JSON.parse(raw));
+        else allCrews = [];
+      } catch (e) {
+        allCrews = [];
+      }
+    }
+
+    function saveCrews() {
+      localStorage.setItem('sahaphan_crews', JSON.stringify(allCrews));
+    }
+
+    async function initFirebase() {
+      try {
+        if (typeof firebase === 'undefined') return;
+        if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+        dbFirestore = firebase.firestore();
+        isFirebaseActive = true;
+
+        const snap = await dbFirestore.collection('crews').get();
+        if (!snap.empty) {
+          const list = [];
+          snap.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+          allCrews = sortCrews(list);
+          saveCrews();
+          refreshActiveCrew();
+        }
+      } catch (e) {
+        console.warn('[Firebase]', e);
+      }
+    }
+
+    async function syncSaveCurrentCrew() {
+      if (!currentCrew) return;
+      currentCrew.membersCount = (currentCrew.roster && currentCrew.roster.length > 0) ? currentCrew.roster.length : 0;
+      
+      const idx = allCrews.findIndex(c => c.id === currentCrew.id);
+      if (idx >= 0) allCrews[idx] = currentCrew;
+      else allCrews.push(currentCrew);
+
+      saveCrews();
+
+      if (isFirebaseActive && dbFirestore) {
+        try {
+          await dbFirestore.collection('crews').doc(currentCrew.id).set(currentCrew, { merge: true });
+        } catch (e) {
+          console.warn('[Firestore] update failed', e);
+        }
+      }
+
+      refreshActiveCrewUI();
+      renderRoster();
+    }
+
+    // ==========================================
+    // 3. UI CONTROLLER
+    // ==========================================
+    function initCrewSelect() {
+      const select = document.getElementById('crewSelect');
+      if (!select) return;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetId = urlParams.get('crew');
+
+      select.innerHTML = allCrews.map(c => `
+        <option value="${c.id}" ${c.id === targetId ? 'selected' : ''}>
+          ${c.name} ${c.thName ? `(${c.thName})` : ''} · ${(c.roster ? c.roster.length : (c.membersCount || 0))} คน
+        </option>
+      `).join('');
+
+      if (allCrews.length > 0) {
+        const found = allCrews.find(c => c.id === targetId) || allCrews[0];
+        setActiveCrew(found);
+      }
+
+      select.addEventListener('change', () => {
+        const selId = select.value;
+        const found = allCrews.find(c => c.id === selId);
+        if (found) {
+          setActiveCrew(found);
+          const newUrl = new URL(window.location);
+          newUrl.searchParams.set('crew', found.id);
+          window.history.replaceState({}, '', newUrl);
+        }
+      });
+    }
+
+    function setActiveCrew(crew) {
+      currentCrew = crew;
+      if (!currentCrew.roster) currentCrew.roster = [];
+      refreshActiveCrewUI();
+      resetMemberForm();
+      renderRoster();
+    }
+
+    function refreshActiveCrew() {
+      const select = document.getElementById('crewSelect');
+      const curId = currentCrew ? currentCrew.id : (new URLSearchParams(window.location.search).get('crew') || (allCrews[0]?.id));
+      
+      if (select) {
+        select.innerHTML = allCrews.map(c => `
+          <option value="${c.id}" ${c.id === curId ? 'selected' : ''}>
+            ${c.name} ${c.thName ? `(${c.thName})` : ''} · ${(c.roster ? c.roster.length : (c.membersCount || 0))} คน
+          </option>
+        `).join('');
+      }
+
+      const found = allCrews.find(c => c.id === curId) || allCrews[0];
+      if (found) {
+        currentCrew = found;
+        if (!currentCrew.roster) currentCrew.roster = [];
+        refreshActiveCrewUI();
+        renderRoster();
+      }
+    }
+
+    function refreshActiveCrewUI() {
+      if (!currentCrew) return;
+
+      const dot = document.getElementById('activeCrewDot');
+      if (dot) {
+        dot.style.background = currentCrew.accent || '#f5c542';
+        dot.style.boxShadow = `0 0 12px ${currentCrew.accent || '#f5c542'}`;
+      }
+
+      const leaderEl = document.getElementById('pillCrewLeader');
+      if (leaderEl) leaderEl.textContent = currentCrew.leader || '-';
+
+      const countEl = document.getElementById('pillMembersCount');
+      const count = currentCrew.roster ? currentCrew.roster.length : (currentCrew.membersCount || 0);
+      if (countEl) countEl.textContent = count;
+
+      const fbWrap = document.getElementById('pillLeaderFbWrap');
+      const fbEl = document.getElementById('pillCrewLeaderFb');
+      if (currentCrew.leaderFacebook) {
+        if (fbWrap) fbWrap.style.display = 'inline-flex';
+        if (fbEl) fbEl.textContent = currentCrew.leaderFacebook;
+      } else {
+        if (fbWrap) fbWrap.style.display = 'none';
+      }
+
+      const viewBtn = document.getElementById('btnViewMemberPage');
+      if (viewBtn) viewBtn.href = `member.html?crew=${encodeURIComponent(currentCrew.id)}`;
+    }
+
+    function formatFacebookUrl(val) {
+      if (!val || typeof val !== 'string') return '';
+      let str = val.trim();
+      if (!str) return '';
+      if (str.startsWith('http://') || str.startsWith('https://')) return str;
+      if (str.startsWith('facebook.com/') || str.startsWith('www.facebook.com/')) return 'https://' + str;
+      str = str.replace(/^@/, '');
+      return 'https://facebook.com/' + encodeURIComponent(str);
+    }
+
+    // ==========================================
+    // 4. ROSTER RENDER
+    // ==========================================
+    function renderRoster() {
+      const grid = document.getElementById('rosterGrid');
+      const badge = document.getElementById('rosterCountBadge');
+      if (!grid || !currentCrew) return;
+
+      const roster = currentCrew.roster || [];
+      if (badge) badge.textContent = `${roster.length} คน`;
+
+      // Update counters
+      document.getElementById('cntAll').textContent = roster.length;
+      document.getElementById('cntFounder').textContent = roster.filter(m => (m.role || '').toUpperCase().includes('FOUNDER')).length;
+      document.getElementById('cntHead').textContent = roster.filter(m => (m.role || '').toUpperCase().includes('HEAD') || (m.role || '').toUpperCase().includes('LEADER')).length;
+      document.getElementById('cntMember').textContent = roster.filter(m => !(m.role || '').toUpperCase().includes('FOUNDER') && !(m.role || '').toUpperCase().includes('HEAD') && !(m.role || '').toUpperCase().includes('LEADER')).length;
+
+      function getMemberPriority(role) {
+        const r = (role || '').toUpperCase();
+        if (r.includes('FOUNDER')) return 1;
+        if (r.includes('HEAD') || r.includes('LEADER')) return 2;
+        if (r.includes('CO-LEADER') || r.includes('OFFICER')) return 3;
+        if (r.includes('MEMBER')) return 4;
+        return 5;
+      }
+
+      const filtered = roster.filter(m => {
+        const r = (m.role || '').toUpperCase();
+        const matchRole = (currentFilter === 'ALL') ||
+                          (currentFilter === 'FOUNDER' && r.includes('FOUNDER')) ||
+                          (currentFilter === 'HEAD' && (r.includes('HEAD') || r.includes('LEADER') || r.includes('CO-LEADER') || r.includes('OFFICER'))) ||
+                          (currentFilter === 'MEMBER' && !r.includes('FOUNDER') && !r.includes('HEAD') && !r.includes('LEADER') && !r.includes('CO-LEADER') && !r.includes('OFFICER'));
+        const query = searchQuery.toLowerCase();
+        const matchSearch = !query || m.name.toLowerCase().includes(query) || (m.bio && m.bio.toLowerCase().includes(query));
+        return matchRole && matchSearch;
+      }).sort((a, b) => {
+        const pA = getMemberPriority(a.role);
+        const pB = getMemberPriority(b.role);
+        if (pA !== pB) return pA - pB;
+        return (a.name || '').localeCompare(b.name || '');
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 48px 20px; color: var(--text-dim); background: rgba(0,0,0,0.25); border-radius: 14px; border: 1px dashed rgba(255,255,255,0.08);">
+            <div style="font-size: 2rem; margin-bottom: 8px;">👥</div>
+            ${roster.length === 0 ? 'ยังไม่มีสมาชิกในเครือนี้ — กรอกแบบฟอร์มด้านบนเพื่อเพิ่มสมาชิกคนแรก' : 'ไม่พบสมาชิกที่ตรงกับเงื่อนไขการค้นหา'}
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(m => {
+        const realIdx = roster.indexOf(m);
+        const roleColor = m.roleColor || currentCrew.accent || '#f5c542';
+        const hasFb = m.facebook && m.facebook.trim() !== '';
+
+        return `
+          <article class="roster-card">
+            <div class="rc-top">
+              <div class="rc-avatar" style="border-color: ${roleColor};">
+                ${m.name.charAt(0).toUpperCase()}
+              </div>
+              <span class="rc-role-tag" style="color: ${roleColor};">
+                <i></i>${m.role || 'MEMBER'}
+              </span>
+            </div>
+
+            <div>
+              <div class="rc-name">${m.name}</div>
+              <div class="rc-bio">${m.bio || 'สมาชิกสังกัด ' + currentCrew.name}</div>
+            </div>
+
+            <div class="rc-actions">
+              ${hasFb ? `
+                <a href="${formatFacebookUrl(m.facebook)}" target="_blank" rel="noopener noreferrer" class="rc-fb-btn" style="text-decoration:none;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <span>Facebook ↗</span>
+                </a>
+              ` : `<span></span>`}
+
+              <div style="display: flex; gap: 6px;">
+                <button type="button" class="rc-btn-edit" data-edit-idx="${realIdx}">แก้ไข</button>
+                <button type="button" class="rc-btn-del" data-del-idx="${realIdx}">ลบ</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Wire edit
+      grid.querySelectorAll('[data-edit-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-edit-idx'));
+          startEditMember(idx);
+        });
+      });
+
+      // Wire delete
+      grid.querySelectorAll('[data-del-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-del-idx'));
+          deleteMember(idx);
+        });
+      });
+    }
+
+    // ==========================================
+    // 5. FORM CONTROLS (ADD / EDIT)
+    // ==========================================
+    function startEditMember(idx) {
+      if (!currentCrew || !currentCrew.roster[idx]) return;
+      const m = currentCrew.roster[idx];
+
+      document.getElementById('editMemberIndex').value = idx;
+      document.getElementById('memberName').value = m.name;
+      document.getElementById('memberRole').value = m.role || 'MEMBER';
+      document.getElementById('memberFacebook').value = m.facebook || '';
+      document.getElementById('memberBio').value = m.bio || '';
+
+      selectedRoleColor = m.roleColor || currentCrew.accent || '#f5c542';
+      const customColor = document.getElementById('memberColorCustom');
+      if (customColor) customColor.value = selectedRoleColor;
+
+      document.querySelectorAll('.admin-color-swatch').forEach(sw => {
+        sw.classList.toggle('is-selected', sw.getAttribute('data-color') === selectedRoleColor);
+      });
+
+      document.getElementById('formTitle').innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>แก้ไขข้อมูลสมาชิก: ${m.name}</span>
+      `;
+      document.getElementById('formSubtitle').textContent = 'แก้ไขข้อมูลสมาชิกแล้วกดบันทึกเพื่ออัปเดต';
+      document.getElementById('btnSubmitMember').textContent = '✓ อัปเดตข้อมูลสมาชิก';
+      document.getElementById('btnCancelEditMember').style.display = 'inline-block';
+
+      // Scroll to form
+      document.querySelector('.member-editor-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('memberName')?.focus();
+    }
+
+    function resetMemberForm() {
+      document.getElementById('memberForm').reset();
+      document.getElementById('editMemberIndex').value = '-1';
+      document.getElementById('formTitle').innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <span>เพิ่มสมาชิกใหม่</span>
+      `;
+      document.getElementById('formSubtitle').textContent = 'กรอกข้อมูลสมาชิกเพื่อแสดงผลในหน้า member.html ของเครือนี้';
+      document.getElementById('btnSubmitMember').textContent = '+ บันทึกสมาชิก';
+      document.getElementById('btnCancelEditMember').style.display = 'none';
+
+      selectedRoleColor = currentCrew?.accent || '#f5c542';
+      const customColor = document.getElementById('memberColorCustom');
+      if (customColor) customColor.value = selectedRoleColor;
+      document.querySelectorAll('.admin-color-swatch').forEach(sw => {
+        sw.classList.toggle('is-selected', sw.getAttribute('data-color') === selectedRoleColor);
+      });
+    }
+
+    function deleteMember(idx) {
+      if (!currentCrew || !currentCrew.roster[idx]) return;
+      const m = currentCrew.roster[idx];
+      if (confirm(`คุณต้องการลบสมาชิก "${m.name}" ออกจากเครือ ${currentCrew.name} ใช่หรือไม่?`)) {
+        currentCrew.roster.splice(idx, 1);
+        syncSaveCurrentCrew();
+        showToast(`ลบสมาชิก "${m.name}" เรียบร้อยแล้ว`);
+      }
+    }
+
+    // ==========================================
+    // 6. TOAST
+    // ==========================================
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      if (!t) return;
+      t.textContent = msg;
+      t.classList.add('is-show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('is-show'), 2500);
+    }
+
+    // ==========================================
+    // 7. CANVAS BACKGROUND
+    // ==========================================
+    function initCanvas() {
+      const canvas = document.getElementById('bg');
+      if (!canvas) return;
+      const gl = canvas.getContext('webgl');
+      if (!gl) return;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; gl.viewport(0, 0, canvas.width, canvas.height); }
+      window.addEventListener('resize', resize); resize();
+      const vs = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+      const fs = `
+        precision highp float;
+        uniform vec2 u_resolution; uniform float u_time;
+        void main() {
+          vec2 st = gl_FragCoord.xy / u_resolution.xy;
+          float t = u_time * 0.2;
+          float wave = sin(st.x * 4.0 + t) * cos(st.y * 4.0 - t);
+          vec3 col = mix(vec3(0.015, 0.018, 0.026), vec3(0.06, 0.08, 0.12), wave * 0.5 + 0.5);
+          gl_FragColor = vec4(col, 1.0);
+        }`;
+      const prg = gl.createProgram();
+      const v = gl.createShader(gl.VERTEX_SHADER); gl.shaderSource(v, vs); gl.compileShader(v);
+      const f = gl.createShader(gl.FRAGMENT_SHADER); gl.shaderSource(f, fs); gl.compileShader(f);
+      gl.attachShader(prg, v); gl.attachShader(prg, f); gl.linkProgram(prg); gl.useProgram(prg);
+      const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+      const pos = gl.getAttribLocation(prg, 'position'); gl.enableVertexAttribArray(pos); gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+      const rLoc = gl.getUniformLocation(prg, 'u_resolution'); const tLoc = gl.getUniformLocation(prg, 'u_time');
+      const t0 = performance.now();
+      (function loop() {
+        gl.uniform2f(rLoc, canvas.width, canvas.height); gl.uniform1f(tLoc, (performance.now() - t0) * 0.001);
+        gl.drawArrays(gl.TRIANGLES, 0, 6); requestAnimationFrame(loop);
+      })();
+    }
+
+    // ==========================================
+    // 8. EVENT LISTENERS
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      initCanvas();
+      loadCrews();
+      initCrewSelect();
+      initFirebase();
+
+      // Color swatches
+      document.querySelectorAll('.admin-color-swatch').forEach(sw => {
+        sw.addEventListener('click', () => {
+          document.querySelectorAll('.admin-color-swatch').forEach(s => s.classList.remove('is-selected'));
+          sw.classList.add('is-selected');
+          selectedRoleColor = sw.getAttribute('data-color');
+          const cp = document.getElementById('memberColorCustom');
+          if (cp) cp.value = selectedRoleColor;
+        });
+      });
+
+      document.getElementById('memberColorCustom')?.addEventListener('input', (e) => {
+        selectedRoleColor = e.target.value;
+        document.querySelectorAll('.admin-color-swatch').forEach(s => s.classList.remove('is-selected'));
+      });
+
+      // Member Form Submit
+      document.getElementById('memberForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!currentCrew) {
+          alert('กรุณาเลือกเครือก่อนเพิ่มสมาชิก');
+          return;
+        }
+
+        const editIdx = parseInt(document.getElementById('editMemberIndex').value);
+        const name = document.getElementById('memberName').value.trim();
+        const role = document.getElementById('memberRole').value;
+        const facebook = document.getElementById('memberFacebook').value.trim();
+        const bio = document.getElementById('memberBio').value.trim();
+
+        const memberObj = {
+          name,
+          role,
+          roleColor: selectedRoleColor,
+          facebook,
+          discord: facebook,
+          bio
+        };
+
+        if (!currentCrew.roster) currentCrew.roster = [];
+
+        if (editIdx >= 0 && editIdx < currentCrew.roster.length) {
+          currentCrew.roster[editIdx] = memberObj;
+          showToast(`อัปเดตสมาชิก "${name}" สำเร็จ`);
+        } else {
+          currentCrew.roster.push(memberObj);
+          showToast(`เพิ่มสมาชิก "${name}" เข้าสู่เครือ ${currentCrew.name} สำเร็จ`);
+        }
+
+        syncSaveCurrentCrew();
+        resetMemberForm();
+      });
+
+      // Cancel Edit
+      document.getElementById('btnCancelEditMember')?.addEventListener('click', resetMemberForm);
+
+      // Search
+      document.getElementById('rosterSearch')?.addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim();
+        renderRoster();
+      });
+
+      // Filter tabs
+      document.querySelectorAll('#rosterFilters .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#rosterFilters .filter-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          currentFilter = btn.getAttribute('data-filter');
+          renderRoster();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
